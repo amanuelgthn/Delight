@@ -20,4 +20,3 @@ export const databases =  new Databases(client);
 export const storage =  new Storage(client);
 export const avatars =  new Avatars(client);
 
-const promise = account.createEmailSession('email@example.com', 'password');
