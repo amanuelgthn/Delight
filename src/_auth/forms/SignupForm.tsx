@@ -37,9 +37,10 @@ const SignupForm = () => {
     const newUser = await createUserAccount(values);
     
     if(!newUser) {
-      return toast({
-        title: "Sign up failed. Please try again",
-      })
+      toast({
+        title: "Sign up failed. Please try again. On submit",
+      });
+      return;
     }
 
     const session = await signInAccount({
@@ -48,7 +49,7 @@ const SignupForm = () => {
     })
 
   if(!session) {
-    return toast({ title: "Sign up failed. Please try again."})
+    return toast({ title: "Sign up failed. Please try again. ON sesssion"})
   }
 
   const isLoggedIn = await checkAuthUser();
