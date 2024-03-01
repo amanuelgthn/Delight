@@ -54,12 +54,14 @@ export async function saveUserToDB(user: {
 }
 
 export async function SignInAccount(user: { email: string; password: string; }) {
+    console.log(user.email, user.password);
     try {
-        const session = await account.createSession(user.email,
-            user.password);
-        
+        const session = account.createEmailPasswordSession(user.email, user.password);
+        session.then(function (response) {
+            console.log(response);})// Succes
             return session;
     } catch (error) {
+        console.log("Error creating");
         console.log(error);
     }
 }
@@ -68,7 +70,7 @@ export async function SignInAccount(user: { email: string; password: string; }) 
 export async function getCurrentUser() {
     try {
         const currentAccount = await account.get();
-
+        console.log(currentAccount.$id);
         if(!currentAccount) throw Error;
 
         const currentUser = await databases.listDocuments(
@@ -76,10 +78,13 @@ export async function getCurrentUser() {
             appwriteConfig.userCollectionId,
             [Query.equal('accountId', currentAccount.$id)]
         )
+        console.log("currentUser");
+        console.log(currentUser);
         if(!currentUser) throw Error;
 
         return currentUser.documents[0];
     } catch (error) {
+        console.log("herecomes the error");
         console.log(error);
     }
 }
