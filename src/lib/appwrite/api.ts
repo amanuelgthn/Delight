@@ -54,11 +54,14 @@ export async function saveUserToDB(user: {
 }
 
 export async function SignInAccount(user: { email: string; password: string; }) {
+    console.log(user.email, user.password);
     try {
-        const session = await account.createEmailPasswordSession(user.email, user.password); 
-        
+        const session = account.createEmailSession(user.email, user.password);
+        session.then(function (response) {
+            console.log(response);})// Succes
             return session;
     } catch (error) {
+        console.log("Error creating");
         console.log(error);
     }
 }
@@ -69,35 +72,21 @@ export async function SignInAccount(user: { email: string; password: string; }) 
 export async function getAccount() {
     try {
         const currentAccount = await account.get();
-        console.log(currentAccount);
-        return currentAccount;
-    } catch (error) {
-        console.log("it's not possible");
-        console.log(error);
-    }
-}
-
-// get current user
-export async function getCurrentUser() {
-    try {
-        const currentAccount = await getAccount();
-
-        if (!currentAccount) throw Error;
+        console.log(currentAccount.$id);
+        if(!currentAccount) throw Error;
 
         const currentUser = await databases.listDocuments(
             appwriteConfig.databaseId,
             appwriteConfig.userCollectionId,
-            [Query.equal("accountId", currentAccount.$id)]
-        );
-
-        if (!currentUser)
-            {
-                console.log("error:");
-                throw Error;
-            }
+            [Query.equal('accountId', currentAccount.$id)]
+        )
+        console.log("currentUser");
+        console.log(currentUser);
+        if(!currentUser) throw Error;
 
         return currentUser;
     } catch (error) {
+        console.log("herecomes the error");
         console.log(error);
         return null;
     }
