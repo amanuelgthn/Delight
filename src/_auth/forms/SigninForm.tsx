@@ -17,7 +17,9 @@ const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-  const { mutateAsync: signInAccount, isPending: isSigningInUser } = useSignInAccount();
+
+
+
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
     defaultValues: {
@@ -26,13 +28,18 @@ const SigninForm = () => {
     },
   });
 
-  
+  // Queries
+  const { mutateAsync: signInAccount, isPending: isSigningInUser } = useSignInAccount();
+
 
   // Handler
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
     try {
-      const session = await signInAccount(user);
-      console.log("session");
+      const session = await signInAccount({
+        email: user.email,
+        password: user.password
+      });
+
         if (!session) {
         toast({ title: "Login failed. Please login your new account", });
         

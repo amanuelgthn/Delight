@@ -1,3 +1,4 @@
+import { useSignOutAccount } from './../react-query/queries';
 import { ID, Query } from "appwrite";
 
 import { INewUser } from "@/types";
@@ -89,6 +90,7 @@ export async function getCurrentUser() {
             appwriteConfig.userCollectionId,
             [Query.equal("accountId", currentAccount.$id)]
         );
+        console.log(currentUser);
 
         if (!currentUser)
             {
@@ -102,3 +104,28 @@ export async function getCurrentUser() {
         return null;
     }
 }
+
+export async function signOutAccount() {
+    try {
+        const session = await account.deleteSession("current");
+
+        return session;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function fetchAndUseUser() {
+    getCurrentUser()
+        .then(response => {
+            console.log(response?.documents[0]);
+            // Now you can use 'user' here and in any code below this point in this function
+            // Your other code that uses 'user' can go here
+
+            return response?.documents[0]; // This value can be used by the caller through .then()
+        })
+        .catch(error => {
+            console.error(error); // Handle any errors
+        });
+}
+

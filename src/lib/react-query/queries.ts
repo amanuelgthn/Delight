@@ -24,6 +24,7 @@ import {
     searchPosts,
     savePost,
     deleteSavedPost,
+    signOutAccount,
   } from "@/lib/appwrite/api";
   import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
   
@@ -44,11 +45,11 @@ import {
     });
   };
   
-//   export const useSignOutAccount = () => {
-//     return useMutation({
-//       mutationFn: signOutAccount,
-//     });
-//   };
+  export const useSignOutAccount = () => {
+    return useMutation({
+      mutationFn: signOutAccount,
+    });
+  };
   
   // ============================================================
   // POST QUERIES
