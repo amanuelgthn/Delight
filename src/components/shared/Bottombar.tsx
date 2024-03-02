@@ -12,7 +12,6 @@ const Bottombar = () => {
               // isDisplayed is a variable to check which route 
               // currently is displayed in the page
               return (
-                <li>
                   <Link
                       to={link.route}
                       key={link.label} className={`bottombar-link ${ 
@@ -26,7 +25,6 @@ const Bottombar = () => {
                     />
                     <p className="tiny-medium text-light-2">{link.label}</p>
                   </Link>
-                </li>
               )
                 })};
     </section>

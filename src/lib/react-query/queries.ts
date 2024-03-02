@@ -5,28 +5,29 @@ import {
     useInfiniteQuery,
   } from "@tanstack/react-query";
   
-  import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
+
   import {
     createUserAccount,
     SignInAccount,
-    getCurrentUser,
-    getUsers,
-    createPost,
-    getPostById,
-    updatePost,
-    getUserPosts,
-    deletePost,
-    likePost,
-    getUserById,
-    updateUser,
-    getRecentPosts,
-    getInfinitePosts,
-    searchPosts,
-    savePost,
-    deleteSavedPost,
+    // getCurrentUser,
+    // getUsers,
+      createPost,
+    // getPostById,
+    // updatePost,
+    // getUserPosts,
+    // deletePost,
+    // likePost,
+    // getUserById,
+    // updateUser,
+    // getRecentPosts,
+    // getInfinitePosts,
+    // searchPosts,
+    // savePost,
+    // deleteSavedPost,
     signOutAccount,
   } from "@/lib/appwrite/api";
   import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
+import { QUERY_KEYS } from "./queryKeys";
   
   // ============================================================
   // AUTH QUERIES
@@ -87,17 +88,17 @@ import {
 //     });
 //   };
   
-//   export const useCreatePost = () => {
-//     const queryClient = useQueryClient();
-//     return useMutation({
-//       mutationFn: (post: INewPost) => createPost(post),
-//       onSuccess: () => {
-//         queryClient.invalidateQueries({
-//           queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
-//         });
-//       },
-//     });
-//   };
+  export const useCreatePost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationFn: (post: INewPost) => createPost(post),
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+        });
+      },
+    });
+  };
   
 //   export const useGetPostById = (postId?: string) => {
 //     return useQuery({
@@ -115,17 +116,17 @@ import {
 //     });
 //   };
   
-//   export const useUpdatePost = () => {
-//     const queryClient = useQueryClient();
-//     return useMutation({
-//       mutationFn: (post: IUpdatePost) => updatePost(post),
-//       onSuccess: (data) => {
-//         queryClient.invalidateQueries({
-//           queryKey: [QUERY_KEYS.GET_POST_BY_ID, data?.$id],
-//         });
-//       },
-//     });
-//   };
+  export const useUpdatePost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationFn: (post: IUpdatePost) => updatePost(post),
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_POST_BY_ID, data?.$id],
+        });
+      },
+    });
+  };
   
 //   export const useDeletePost = () => {
 //     const queryClient = useQueryClient();
