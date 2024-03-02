@@ -90,7 +90,6 @@ export async function getCurrentUser() {
             appwriteConfig.userCollectionId,
             [Query.equal("accountId", currentAccount.$id)]
         );
-        console.log(currentUser);
 
         if (!currentUser)
             {
@@ -121,7 +120,6 @@ export function fetchAndUseUser() {
             console.log(response?.documents[0]);
             // Now you can use 'user' here and in any code below this point in this function
             // Your other code that uses 'user' can go here
-
             return response?.documents[0]; // This value can be used by the caller through .then()
         })
         .catch(error => {
