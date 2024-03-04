@@ -22,19 +22,19 @@ import { Models } from 'appwrite'
 import { useCreatePost, useUpdatePost } from '@/lib/react-query/queries'
 import { useUserContext } from '@/context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import Loader from '../shared/Loader'
 
 type PostFormProps = {
   post?: Models.Document;
-}
+  action: "Create" | "Update";
+};
  
-const PostForm = ({ post }: PostFormProps) => {
-
-  const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost();
-  // const { mutateAsync: updatePost, isLoading: isLoadingUpdate } = useUpdatePost();
+const PostForm = ({ post, action }: PostFormProps) => {
 
   const { user } = useUserContext();
   const { toast } = useToast();
   const navigate = useNavigate();
+
     // 1. Define your form.
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
@@ -45,30 +45,28 @@ const PostForm = ({ post }: PostFormProps) => {
       tags: post ? post?.tags.join(",") : "",
     },
   });
-  
- 
-  // const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
-  //   // 
-  //   if (post & action === "Update") {
-  //     const updatedPost = await updatePost({
-  //       ...value,
-  //       postId: post.$id,
-  //       imageId: post.imageId,
-  //       imageUrl: post.imageUrl,
-  //     });
-  // }
+  const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost();
+  const { mutateAsync: updatePost, isPending: isLoadingUpdate } = useUpdatePost();
+ //handle submit handler
+  const onSubmit = async (value: z.infer<typeof PostValidation>) => {
 
-  // if (!updatedPost) {
-  //   toast({
-  //     title: `${action} post failed. Please try again.`,
-  //   });
-  // }
+    if (post && action === "Update") {
+      const updatedPost = await updatePost({
+        ...value,
+        postId: post.$id,
+        imageId: post.imageId,
+        imageUrl: post.imageUrl,
+      });
 
-  // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof PostValidation>) {
-    // ✅ This will be type-safe and validated.
+  if (!updatedPost) {
+    toast({
+      title: `${action} post failed. Please try again.`,
+    });
+  }
+  return navigate(`/posts/${post.$id}`);
+}
     const newPost = await createPost({
-      ...values,
+      ...value,
       userId: user.id,
     })
 
@@ -79,6 +77,7 @@ const PostForm = ({ post }: PostFormProps) => {
   }
   navigate("/");
 }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-9 w-full max-w-5xl">
@@ -146,11 +145,13 @@ const PostForm = ({ post }: PostFormProps) => {
         <div className='flex gap-4 items-center justify-end'>
             <Button type="submit"
                     className='shad-button_primary whitespace-nowrap'
-                    >
-                    Submit
+                    disabled={isLoadingCreate || isLoadingUpdate}>
+                    {(isLoadingCreate || isLoadingUpdate) && <Loader />}
+                    {action} Post
             </Button>
             <Button type="button" 
                     className="shad-button_dark_4"
+                    onClick={() => navigate(-1)}
                     >
                     Cancel
             </Button>

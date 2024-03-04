@@ -32,6 +32,7 @@ import {
     deletePost,
     getCurrentUser,
     getUsers,
+    getPostById,
   } from "@/lib/appwrite/api";
   import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
@@ -107,21 +108,21 @@ import { QUERY_KEYS } from "./queryKeys";
     });
   };
   
-//   export const useGetPostById = (postId?: string) => {
-//     return useQuery({
-//       queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
-//       queryFn: () => getPostById(postId),
-//       enabled: !!postId,
-//     });
-//   };
+  export const useGetPostById = (postId?: string) => {
+    return useQuery({
+      queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
+      queryFn: () => getPostById(postId!),// This ensures the query is only run when postId is not undefine
+      enabled: !!postId,
+    });
+  };
   
-//   export const useGetUserPosts = (userId?: string) => {
-//     return useQuery({
-//       queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
-//       queryFn: () => getUserPosts(userId),
-//       enabled: !!userId,
-//     });
-//   };
+  // export const useGetUserPosts = (userId?: string) => {
+  //   return useQuery({
+  //     queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
+  //     queryFn: () => getUserPosts(userId),
+  //     enabled: !!userId,
+  //   });
+  // };
   
   export const useUpdatePost = () => {
     const queryClient = useQueryClient();
