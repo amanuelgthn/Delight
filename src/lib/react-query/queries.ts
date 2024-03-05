@@ -34,6 +34,7 @@ import {
     getUsers,
     getPostById,
     searchPosts,
+    getUserById,
   } from "@/lib/appwrite/api";
   import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
@@ -233,13 +234,13 @@ export const useSearchPosts = (searchTerm: string) => {
     });
   };
   
-//   export const useGetUserById = (userId: string) => {
-//     return useQuery({
-//       queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
-//       queryFn: () => getUserById(userId),
-//       enabled: !!userId,
-//     });
-//   };
+  export const useGetUserById = (userId: string) => {
+    return useQuery({
+      queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
+      queryFn: () => getUserById(userId),
+      enabled: !!userId,
+    });
+  };
   
 //   export const useUpdateUser = () => {
 //     const queryClient = useQueryClient();
