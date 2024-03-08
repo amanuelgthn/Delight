@@ -1,5 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 
+// Wrap both signin and signup forms in 
 const AuthLayout = () => {
     const isAuthenticated = false;
 

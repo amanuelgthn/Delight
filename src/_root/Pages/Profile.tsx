@@ -107,7 +107,7 @@ const Profile = () => {
               pathname === `/profile/${id}` && "!bg-dark-3"
             }`}>
             <img
-              src={"/assets/icons/posts.svg"}
+              src={"/assets/icons/post.svg"}
               alt="posts"
               width={20}
               height={20}

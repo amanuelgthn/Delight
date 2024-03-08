@@ -6,36 +6,7 @@ import {
   } from "@tanstack/react-query";
   
 
-  import {
-    createUserAccount,
-    SignInAccount,
-    // getCurrentUser,
-    // getUsers,
-      createPost,
-    // getPostById,
-    // updatePost,
-    // getUserPosts,
-    // deletePost,
-    // likePost,
-    // getUserById,
-    // updateUser,
-    getInfinitePosts,
-    // searchPosts,
-    // savePost,
-    // deleteSavedPost,
-    signOutAccount,
-    getRecentPosts,
-    likePost,
-    deleteSavedPost,
-    savePost,
-    updatePost,
-    deletePost,
-    getCurrentUser,
-    getUsers,
-    getPostById,
-    searchPosts,
-    getUserById,
-  } from "@/lib/appwrite/api";
+  import { createUserAccount, SignInAccount, createPost, getInfinitePosts, signOutAccount, getRecentPosts, likePost, deleteSavedPost, savePost, updatePost, deletePost, getCurrentUser, getUsers, getPostById, searchPosts, getUserById, } from "@/lib/appwrite/api";
   import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
   

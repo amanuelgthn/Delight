@@ -1,4 +1,3 @@
-import { useSignOutAccount } from './../react-query/queries';
 import { ID, Query } from "appwrite";
 
 import { INewPost, INewUser, IUpdatePost } from "@/types";
@@ -118,8 +117,7 @@ export function fetchAndUseUser() {
     getCurrentUser()
         .then(response => {
             console.log(response?.documents[0]);
-            // Now you can use 'user' here and in any code below this point in this function
-            // Your other code that uses 'user' can go here
+            // using 'user' here and in any code below this point in this function
             return response?.documents[0]; // This value can be used by the caller through .then()
         })
         .catch(error => {
