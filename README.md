@@ -1,4 +1,9 @@
-# Delight 
+# Delight
+Delight is a platform where people can connect, share and explore.
+The app employs creating account, creating new posts, updating posts, Liking posts, exploring trending posts and more.
+The idea behind is inspired by instagram and to employ some of the features
+aims to create a unique and engaging experience
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
